@@ -1,6 +1,7 @@
 ﻿using EFModelInitForeignApp;
+using System.Runtime.ConstrainedExecution;
 
-using(EmployeeAppContext context = new())
+using (EmployeeAppContext context = new())
 {
     context.DeleteCreate();
     //context.HasData();
@@ -39,3 +40,22 @@ using(EmployeeAppContext context = new())
 //            Console.WriteLine($"\tName: {e.Name}, Age: {e.Age}");
 //    }
 //}
+
+
+using(EmployeeAppContext context = new())
+{
+    foreach(var e in context.Employees)
+        Console.WriteLine($"{e.Name}");
+    Console.WriteLine();
+
+
+    var company = context.Companies.FirstOrDefault(c => c.Id == 2);
+    if(company is not null)
+    {
+        context.Companies.Remove(company);
+    }
+    context.SaveChanges();
+
+    foreach (var e in context.Employees)
+        Console.WriteLine($"{e.Name}");
+}

@@ -27,26 +27,31 @@ namespace EFModelInitForeignApp
             //modelBuilder.Entity<Company>().HasData(companies);
             //modelBuilder.Entity<Employee>().HasData(employees);
 
-            modelBuilder.Entity<Passport>()
-                        .HasKey(p => p.Number);
+            //modelBuilder.Entity<Passport>()
+            //            .HasKey(p => p.Number);
             
 
-            modelBuilder.Entity<Employee>()
-                        .HasOne(e => e.Passport)
-                        .WithOne(p => p.Employee)
-                        .HasForeignKey<Passport>(p => p.EmployeeId);
+            //modelBuilder.Entity<Employee>()
+            //            .HasOne(e => e.Passport)
+            //            .WithOne(p => p.Employee)
+            //            .HasForeignKey<Passport>(p => p.EmployeeId);
 
-            modelBuilder.Entity<Employee>()
-                        .HasOne(e => e.Company)
-                        .WithMany(c => c.Employees)
-                        .HasForeignKey(e => e.CompanyId)
-                        .OnDelete(DeleteBehavior.SetNull);
+            //modelBuilder.Entity<Employee>()
+            //            .HasOne(e => e.Company)
+            //            .WithMany(c => c.Employees)
+            //            .HasForeignKey(e => e.CompanyId)
+            //            .OnDelete(DeleteBehavior.SetNull);
 
             //modelBuilder.Entity<Employee>()
             //            .HasOne(e => e.Company)
             //            .WithMany(c => c.Employees)
             //            .HasForeignKey(e => e.CompanyTitle)
             //            .HasPrincipalKey(c => c.Title);
+
+            modelBuilder.Entity<Employee>()
+                        .HasOne(e => e.Company)
+                        .WithMany(c => c.Employees)
+                        .OnDelete(DeleteBehavior.Cascade);
         }
 
         public void DeleteCreate()
